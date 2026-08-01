@@ -1,26 +1,24 @@
+import { useState } from "react";
 import { Outlet, NavLink, useNavigate } from "react-router-dom";
-import { LogOut, User, Settings } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import { coreRoutes } from "../routes";
+import { Navbar } from "./navbar/Navbar";
+import { Footer } from "./footer/Footer";
 
 export function AppLayout() {
   const { session, logout } = useAuth();
   const navigate = useNavigate();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
     navigate("/login", { replace: true });
   };
 
-  const coreRoutes = [
-    { path: "/sandbox", label: "Sandbox" },
-    { path: "/upload", label: "Upload" },
-    { path: "/executions", label: "Executions" },
-    { path: "/logs", label: "Logs" },
-  ];
-
   return (
     <div className="app-layout">
-      <aside className="sidebar">
+      <aside className={`sidebar ${sidebarOpen ? "sidebar-open" : ""}`}>
         <div className="sidebar-header">
           <div className="brand">
             <span>WB</span>
@@ -28,15 +26,20 @@ export function AppLayout() {
           </div>
         </div>
         <nav className="sidebar-nav">
-          {coreRoutes.map((route) => (
-            <NavLink
-              key={route.path}
-              to={route.path}
-              className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
-            >
-              <span>{route.label}</span>
-            </NavLink>
-          ))}
+          {coreRoutes.map((route) => {
+            const Icon = route.icon;
+            return (
+              <NavLink
+                key={route.path}
+                to={`/${route.path}`}
+                onClick={() => setSidebarOpen(false)}
+                className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+              >
+                <Icon size={16} />
+                <span>{route.label}</span>
+              </NavLink>
+            );
+          })}
         </nav>
         <div className="sidebar-footer">
           <div className="user-info">
@@ -53,9 +56,16 @@ export function AppLayout() {
           </button>
         </div>
       </aside>
-      <main className="main-content">
-        <Outlet />
-      </main>
+
+      {sidebarOpen && <div className="sidebar-backdrop" onClick={() => setSidebarOpen(false)} />}
+
+      <div className="app-shell-main">
+        <Navbar onMenuClick={() => setSidebarOpen((prev) => !prev)} />
+        <main className="main-content">
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 }

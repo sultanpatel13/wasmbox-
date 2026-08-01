@@ -32,7 +32,7 @@ export function PublicRoute() {
   }
 
   if (isAuthenticated) {
-    return <Navigate to="/sandbox" replace />;
+    return <Navigate to="/dashboard" replace />;
   }
 
   return <Outlet />;

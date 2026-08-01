@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import { ProtectedRoute, PublicRoute } from "./ProtectedRoute";
 import { LoginPage } from "../pages/LoginPage";
+import { NotFound } from "../pages/NotFound";
 import { coreRoutes } from "./index";
 import { AppLayout } from "../components/AppLayout";
 
@@ -19,11 +20,16 @@ export const router = createBrowserRouter([
   {
     element: <ProtectedRoute />,
     children: [
-      { path: "/", element: <Navigate to="/sandbox" replace /> },
-      ...routeElements.map((r) => ({ path: `/${r.path}`, element: r.element })),
+      {
+        element: <AppLayout />,
+        children: [
+          { path: "/", element: <Navigate to="/dashboard" replace /> },
+          ...routeElements.map((r) => ({ path: `/${r.path}`, element: r.element })),
+          { path: "*", element: <NotFound /> },
+        ],
+      },
     ],
   },
-  { path: "*", element: <Navigate to="/sandbox" replace /> },
 ]);
 
 export function RouterProvider() {
