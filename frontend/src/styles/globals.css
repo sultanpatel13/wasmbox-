@@ -1568,3 +1568,73 @@ select:disabled {
     padding: 16px;
   }
 }
+
+/* ============================================
+   CODE EDITOR PANEL (Monaco)
+   ============================================ */
+.code-editor-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.monaco-wrapper {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.code-result {
+  margin-top: 16px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 14px;
+}
+
+.code-result-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.code-result-stdout,
+.code-result-stderr,
+.code-result-error {
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: 12.5px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+  padding: 8px 0;
+}
+
+.code-result-stdout {
+  color: var(--text-primary);
+}
+
+.code-result-stderr {
+  color: var(--warning);
+}
+
+.code-result-error {
+  color: var(--error);
+}
+
+.code-result-empty {
+  color: var(--text-muted);
+  font-size: 12.5px;
+  font-style: italic;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

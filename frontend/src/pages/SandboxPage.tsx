@@ -1,5 +1,6 @@
 import { Cpu, HardDrive, Network, Settings2 } from "lucide-react";
 import { TerminalPanel } from "../components/TerminalPanel";
+import { CodeEditorPanel } from "../components/ui/CodeEditorPanel";
 import { useRuntimeData } from "../hooks/useRuntimeData";
 import { runtimeActions } from "../store/runtimeStore";
 
@@ -30,6 +31,8 @@ export function SandboxPage() {
           <strong>{status?.connected ? "Online" : "Offline"}</strong>
         </div>
       </section>
+
+      <CodeEditorPanel />
 
       <div className="split">
         <section className="panel">
