@@ -1638,3 +1638,25 @@ select:disabled {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/* ============================================
+   INPUT ERROR TEXT
+   ============================================ */
+.input-error {
+  display: block;
+  color: var(--error);
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+/* ============================================
+   CLICKABLE TABLE ROWS
+   ============================================ */
+.table-row-clickable {
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.table-row-clickable:hover {
+  background: var(--bg-hover);
+}
